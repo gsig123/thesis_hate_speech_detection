@@ -1,7 +1,5 @@
 # Multilingual Hate Speech Detection 
-## Thesis 
-## IT University of Copenhagen 
---- 
+### Master's Thesis // IT University of Copenhagen 
 
 
 ## Contributors 
