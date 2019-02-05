@@ -2,7 +2,8 @@
 ### Master's Thesis // IT University of Copenhagen 
 
 ## Project Setup 
-This project uses **Python 3** :snake:
+**Project Dependencies:**
+- This project uses **Python 3** :snake:
 
 **Environment Setup Using venv:**
 ```console
