@@ -14,7 +14,7 @@ $ . ~/PythonEnv/thesis/bin/activate
 
 **Install Requirements:**
 ```console
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Contributors 
