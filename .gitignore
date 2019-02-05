@@ -4,3 +4,7 @@
 /data/OffensEval2019/Test_C_Release/
 .DS_Store
 .vscode/
+*.pyc
+*.pyo
+__pycache__/
+*.py[cod]
