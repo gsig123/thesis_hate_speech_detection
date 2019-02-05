@@ -3,7 +3,7 @@
 
 ## Project Setup 
 **Project Dependencies:**
-- This project uses **Python 3** :snake:
+- **Python 3** :snake:
 
 **Environment Setup Using venv:**
 ```console
