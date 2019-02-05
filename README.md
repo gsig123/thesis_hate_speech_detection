@@ -5,7 +5,7 @@
 **Project Dependencies:**
 - **Python 3** :snake:
 
-**Environment Setup Using venv:**
+**Setting up an python3 environment with venv:**
 ```console
 # Create the environment
 $ python3 -m venv ~/PythonEnv/thesis
