@@ -13,7 +13,7 @@ $ python3 -m venv ~/PythonEnv/thesis
 $ . ~/PythonEnv/thesis/bin/activate
 ```
 
-**Install Requirements:**
+**Installing Requirements:**
 ```console
 $ pip install -r requirements.txt
 ```
