@@ -4,7 +4,7 @@
 ## Project Setup 
 This project uses **Python 3** :snake:
 
-**Environment Setup Using venv**
+**Environment Setup Using venv:**
 ```console
 # Create the environment
 $ python3 -m venv ~/PythonEnv/thesis
@@ -12,7 +12,7 @@ $ python3 -m venv ~/PythonEnv/thesis
 $ . ~/PythonEnv/thesis/bin/activate
 ```
 
-**Install Requirements**
+**Install Requirements:**
 ```console
 pip install -r requirements.txt
 ```
