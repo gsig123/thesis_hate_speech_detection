@@ -15,6 +15,11 @@ class DataPrep:
         return dataset
 
     def get_X_y(self, dataset, X_column_names=['tweet'], y_column_names=['subtask_a']):
+        """
+        y are categorical dependent variables, therefore
+        they are tranformed to single boolean columns for each category.
+        Returns X, y and a list of the new column names for y.
+        """
         y_df = pd.get_dummies(dataset[y_column_names])
         y_new_col_names = list(y_df)
         y = y_df.values
@@ -27,15 +32,16 @@ class DataPrep:
         return X_train, X_test, y_train, y_test
 
     def feature_scaling(self, X_train, X_test):
+        """
+        Probably only usable for number features - not sure if this will be used.
+        """
         sc = StandardScaler()
         X_train = sc.fit_transform(X_train)
         X_test = sc.transform(X_test)
+        return X_train, X_test
 
     def handle_missing_data(self):
+        """
+        Added this method to remember we need to deal with 'NaN' values.
+        """
         pass
-
-    def categorical_data_to_boolean_columns(self, my_list):
-        my_list = pd.get_dummies(df(my_list))
-        return my_list
-
-    

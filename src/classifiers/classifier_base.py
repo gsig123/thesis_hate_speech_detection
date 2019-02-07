@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import itertools
 from abc import ABCMeta, abstractmethod
 
+
 class Classifier(metaclass=ABCMeta):
     @abstractmethod
     def __init__(self):
@@ -15,11 +16,21 @@ class Classifier(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def fit(self, X_train, y_train):
+    def train(self, X_train, y_train, save_to_file=False, file_name=None):
+        """
+        - Trains a model
+        
+        - If you set save_to_file to 'True' and provide a the file_name
+          it will save the model as a '.pkl' file in the './models' directory
+        - It will also create a textfile with some metadata about the model
+          in the './models/meta' directory, with the same name as the model
+
+        - Returns the trained model
+        """
         pass
 
     @abstractmethod
-    def predict(self, X):
+    def predict(self, X, model=None):
         pass
     
     def confusion_matrix(self, y_true, y_pred):
@@ -56,8 +67,8 @@ class Classifier(metaclass=ABCMeta):
 
         for i, j in itertools.product(range(confusion_matrix.shape[0]), range(confusion_matrix.shape[1])):
             plt.text(j, i, format(confusion_matrix[i, j], fmt),
-                        horizontalalignment="center",
-                         color="white" if confusion_matrix[i, j] > thresh else "black")
+                     horizontalalignment="center",
+                     color="white" if confusion_matrix[i, j] > thresh else "black")
 
         plt.ylabel('True Label')
         plt.xlabel('Predicted Label')
