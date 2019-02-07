@@ -10,8 +10,12 @@ class DataPrep:
     def __init__(self):
         pass
 
-    def file_to_dataframe(self, file_path):
+    def tsv_to_dataframe(self, file_path):
         dataset = pd.read_csv(file_path, sep='\t')
+        return dataset
+
+    def csv_to_dataframe(self, file_path):
+        dataset = pd.read_csv(file_path)
         return dataset
 
     def get_X_y(self, dataset, X_column_names=['tweet'], y_column_names=['subtask_a']):
