@@ -4,6 +4,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 import itertools
 from abc import ABCMeta, abstractmethod
+import seaborn
 
 
 class Classifier(metaclass=ABCMeta):
@@ -16,15 +17,13 @@ class Classifier(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def train(self, X_train, y_train, save_to_file=False, file_name=None):
+    def fit(self, X_train, y_train, save_to_file=False, file_name=None):
         """
         - Trains a model
-        
         - If you set save_to_file to 'True' and provide a the file_name
           it will save the model as a '.pkl' file in the './models' directory
         - It will also create a textfile with some metadata about the model
           in the './models/meta' directory, with the same name as the model
-
         - Returns the trained model
         """
         pass
@@ -32,46 +31,47 @@ class Classifier(metaclass=ABCMeta):
     @abstractmethod
     def predict(self, X, model=None):
         pass
-    
-    def confusion_matrix(self, y_true, y_pred):
-        return metrics.confusion_matrix(y_true, y_pred)
+
+    def confusion_matrix(self, y_true, y_pred, num_categories, names):
+        confusion_matrix = metrics.confusion_matrix(y_true, y_pred)
+        matrix_proportions = np.zeros((num_categories, num_categories))
+        for i in range(0, 3):
+            matrix_proportions[i, :] = \
+                confusion_matrix[i, :] / float(confusion_matrix[i, :].sum())
+        confusion_df = pd.DataFrame(
+            matrix_proportions, index=names, columns=names)
+        return confusion_df
 
     def f1_score(self, y_true, y_pred):
-        return metrics.f1_score(y_true, y_pred)
+        return metrics.f1_score(y_true, y_pred, average=None)
 
     def recall(self, y_true, y_pred):
-        return metrics.recall_score(y_true, y_pred)
-    
+        return metrics.recall_score(y_true, y_pred, average=None)
+
     def precision(self, y_true, y_pred):
-        return metrics.precision_score(y_true, y_pred)
+        return metrics.precision_score(y_true, y_pred, average=None)
 
     def accuracy(self, y_true, y_pred):
         return metrics.accuracy_score(y_true, y_pred)
 
-    def plot_confusion_matrix(self, confusion_matrix, class_names, normalize=False, title="", cmap=plt.cm.Blues):
-        if normalize:
-            confusion_matrix = confusion_matrix.astype('float') / confusion_matrix.sum(axis=1)[:, np.newaxis]
-            print("Normalized confusion matrix")
-        else:
-            print('Confusion matrix, without normalization')
-
-        plt.imshow(confusion_matrix, interpolation='nearest', cmap=cmap)
-        plt.title(title)
-        plt.colorbar()
-        tick_marks = np.arange(len(class_names))
-        plt.xticks(tick_marks, class_names, rotation=45)
-        plt.yticks(tick_marks, class_names)
-
-        fmt = '.2f' if normalize else 'd'
-        thresh = confusion_matrix.max() / 2.
-
-        for i, j in itertools.product(range(confusion_matrix.shape[0]), range(confusion_matrix.shape[1])):
-            plt.text(j, i, format(confusion_matrix[i, j], fmt),
-                     horizontalalignment="center",
-                     color="white" if confusion_matrix[i, j] > thresh else "black")
-
-        plt.ylabel('True Label')
-        plt.xlabel('Predicted Label')
-        plt.tight_layout()
-
+    def plot_confusion_matrix(self, confusion_df, file_path=None):
+        plt.rc('pdf', fonttype=42)
+        plt.rcParams['ps.useafm'] = True
+        plt.rcParams['pdf.use14corefonts'] = True
+        plt.rcParams['text.usetex'] = True
+        plt.figure(figsize=(5, 5))
+        seaborn.heatmap(
+            confusion_df,
+            annot=True,
+            annot_kws={"size": 12},
+            cmap='gist_gray_r',
+            cbar=False,
+            square=True,
+            fmt='.2f'
+        )
+        plt.ylabel(r'\textbf{True categories}', fontsize=14)
+        plt.xlabel(r'\textbf{Predicted categories}', fontsize=14)
+        plt.tick_params(labelsize=12)
+        if file_path:
+            plt.savefig(file_path)
         plt.show()

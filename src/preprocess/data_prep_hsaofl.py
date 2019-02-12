@@ -11,9 +11,10 @@ from sklearn.svm import LinearSVC
 import matplotlib.pyplot as plt
 from .data_prep import DataPrep
 import numpy as np
+import pandas as pd
 
 
-class DataPrepHSAFL(DataPrep):
+class DataPrepHSAOFL(DataPrep):
 
     def __init__(self):
         self.stemmer = PorterStemmer()
@@ -73,7 +74,8 @@ class DataPrepHSAFL(DataPrep):
         tfidf = vectorizer.fit_transform(tweets).toarray()
         vocab = {v: i for i, v in enumerate(vectorizer.get_feature_names())}
         idf_vals = vectorizer.idf_
-        idf_dict = {i: idf_vals[i] for i in vocab.values()}  # keys are indices; values are IDF scores
+        # keys are indices; values are IDF scores
+        idf_dict = {i: idf_vals[i] for i in vocab.values()}
         return tfidf, vocab, idf_vals, idf_dict
 
     def get_pos_tags_as_strings(self, tweets):
@@ -105,7 +107,8 @@ class DataPrepHSAFL(DataPrep):
         )
         # Construct POS TF matrix and get vocab dict
         pos = pos_vectorizer.fit_transform(tweet_tags).toarray()
-        pos_vocab = {v: i for i, v in enumerate(pos_vectorizer.get_feature_names())}
+        pos_vocab = {v: i for i, v in enumerate(
+            pos_vectorizer.get_feature_names())}
         return pos, pos_vocab
 
     def count_twitter_objs(self, text_string):
@@ -130,7 +133,11 @@ class DataPrepHSAFL(DataPrep):
         parsed_text = re.sub(giant_url_regex, 'URLHERE', parsed_text)
         parsed_text = re.sub(mention_regex, 'MENTIONHERE', parsed_text)
         parsed_text = re.sub(hashtag_regex, 'HASHTAGHERE', parsed_text)
-        return parsed_text.count('URLHERE'), parsed_text.count('MENTIONHERE'), parsed_text.count('HASHTAGHERE')
+        return (
+            parsed_text.count('URLHERE'),
+            parsed_text.count('MENTIONHERE'),
+            parsed_text.count('HASHTAGHERE')
+        )
 
     def get_other_features(self, tweet):
         """This function takes a string and returns a list of features.
@@ -138,30 +145,27 @@ class DataPrepHSAFL(DataPrep):
         as well as Twitter specific features"""
         sentiment_analyzer = VS()
         sentiment = sentiment_analyzer.polarity_scores(tweet)
-        
         words = self.preprocess(tweet)  # Get text only
-        
         syllables = textstat.syllable_count(words)
         num_chars = sum(len(w) for w in words)
         num_chars_total = len(tweet)
         num_terms = len(tweet.split())
         num_words = len(words.split())
-        avg_syl = round(float((syllables + 0.001)) / float(num_words + 0.001), 4)
+        avg_syl = round(
+            float((syllables + 0.001)) / float(num_words + 0.001), 4)
         num_unique_terms = len(set(words.split()))
-        
         # Modified FK grade, where avg words per sentence is just num words/1
         FKRA = round(float(0.39 * float(num_words) / 1.0) + float(11.8 * avg_syl) - 15.59, 1)
         # Modified FRE score, where sentence fixed to 1
         FRE = round(206.835 - 1.015 * (float(num_words) / 1.0) - (84.6 * float(avg_syl)), 2)
-        
         twitter_objs = self.count_twitter_objs(tweet)
         retweet = 0
         if "rt" in words:
             retweet = 1
-        features = [FKRA, FRE, syllables, avg_syl, num_chars, num_chars_total, num_terms, num_words,
-                    num_unique_terms, sentiment['neg'], sentiment['pos'], sentiment['neu'], sentiment['compound'],
-                    twitter_objs[2], twitter_objs[1],
-                    twitter_objs[0], retweet]
+        features = [FKRA, FRE, syllables, avg_syl, num_chars, num_chars_total,
+                    num_terms, num_words, num_unique_terms, sentiment['neg'],
+                    sentiment['pos'], sentiment['neu'], sentiment['compound'],
+                    twitter_objs[2], twitter_objs[1], twitter_objs[0], retweet]
         # features = pandas.DataFrame(features)
         return features
 
@@ -169,19 +173,26 @@ class DataPrepHSAFL(DataPrep):
         feats = []
         for t in tweets:
             feats.append(self.get_other_features(t))
-        other_features_names = ["FKRA", "FRE", "num_syllables", "avg_syl_per_word", "num_chars", "num_chars_total",
-                                "num_terms", "num_words", "num_unique_words", "vader neg", "vader pos", "vader neu", 
-                                "vader compound", "num_hashtags", "num_mentions", "num_urls", "is_retweet"]
+        other_features_names = ["FKRA", "FRE", "num_syllables",
+                                "avg_syl_per_word", "num_chars",
+                                "num_chars_total", "num_terms",
+                                "num_words", "num_unique_words",
+                                "vader neg", "vader pos",
+                                "vader neu", "vader compound",
+                                "num_hashtags", "num_mentions",
+                                "num_urls", "is_retweet"]
         return np.array(feats), other_features_names
 
-    def get_X_y_feature_names(self):
-        dataset = self.csv_to_dataframe("data/raw/HateSpeechAndOffensiveLanguage/labeled_data.csv")
+    def get_X_y_feature_names(self, dataset):
+        # # Testing on first 1000 rows to speed things up
+        # dataset = dataset.head(1000)
         tweets = dataset['tweet']
         tfidf, vocab, idf_vals, idf_dict = self.get_tfidf_matrix(tweets)
         tweet_tags = self.get_pos_tags_as_strings(tweets)
         pos, pos_vocab = self.get_token_matrix_for_pos_tags(tweet_tags)
         other_features, other_features_names = self.get_other_features_array(tweets)
         X = np.concatenate([tfidf, pos, other_features], axis=1)
+        X = pd.DataFrame(X)
 
         # Get list of feature names
         feature_names = variables = [''] * len(vocab)
@@ -192,14 +203,6 @@ class DataPrepHSAFL(DataPrep):
             pos_variables[v] = k
         feature_names = variables + pos_variables + other_features_names
 
-        y = dataset['class']
+        y = dataset['class'].astype(int)
 
         return X, y, feature_names
-
-        
-
-
-
-
-
-    

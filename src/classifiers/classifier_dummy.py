@@ -1,5 +1,4 @@
 import numpy as np
-import itertools
 from .classifier_base import Classifier
 
 
