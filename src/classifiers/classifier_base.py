@@ -8,18 +8,15 @@ import seaborn
 
 
 class Classifier(metaclass=ABCMeta):
+
     @abstractmethod
     def __init__(self):
         pass
 
     @abstractmethod
-    def prepare_dataset(self, dataframe):
-        pass
-
-    @abstractmethod
     def fit(self, X_train, y_train, save_to_file=False, file_name=None):
         """
-        - Trains a model
+        - Trains and returns a model. 
         - If you set save_to_file to 'True' and provide a the file_name
           it will save the model as a '.pkl' file in the './models' directory
         - It will also create a textfile with some metadata about the model

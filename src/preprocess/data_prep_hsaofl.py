@@ -9,7 +9,7 @@ from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import classification_report
 from sklearn.svm import LinearSVC
 import matplotlib.pyplot as plt
-from .data_prep import DataPrep
+from .data_prep_base import DataPrep
 import numpy as np
 import pandas as pd
 

@@ -3,10 +3,12 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from abc import ABCMeta, abstractmethod
 
 
-class DataPrep:
+class DataPrep(metaclass=ABCMeta):
 
+    @abstractmethod
     def __init__(self):
         pass
 
