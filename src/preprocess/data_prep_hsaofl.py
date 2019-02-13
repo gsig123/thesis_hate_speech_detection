@@ -140,9 +140,11 @@ class DataPrepHSAOFL(DataPrep):
         )
 
     def get_other_features(self, tweet):
-        """This function takes a string and returns a list of features.
+        """
+        This function takes a string and returns a list of features.
         These include Sentiment scores, Text and Readability scores,
-        as well as Twitter specific features"""
+        as well as Twitter specific features
+        """
         sentiment_analyzer = VS()
         sentiment = sentiment_analyzer.polarity_scores(tweet)
         words = self.preprocess(tweet)  # Get text only
@@ -183,10 +185,10 @@ class DataPrepHSAOFL(DataPrep):
                                 "num_urls", "is_retweet"]
         return np.array(feats), other_features_names
 
-    def get_X_y_feature_names(self, dataset):
+    def get_X_y_feature_names(self, dataset, tweet_column_name, y_column_name):
         # # Testing on first 1000 rows to speed things up
         # dataset = dataset.head(1000)
-        tweets = dataset['tweet']
+        tweets = dataset[tweet_column_name]
         tfidf, vocab, idf_vals, idf_dict = self.get_tfidf_matrix(tweets)
         tweet_tags = self.get_pos_tags_as_strings(tweets)
         pos, pos_vocab = self.get_token_matrix_for_pos_tags(tweet_tags)
@@ -203,6 +205,6 @@ class DataPrepHSAOFL(DataPrep):
             pos_variables[v] = k
         feature_names = variables + pos_variables + other_features_names
 
-        y = dataset['class'].astype(int)
+        y = dataset[y_column_name].astype(int)
 
         return X, y, feature_names

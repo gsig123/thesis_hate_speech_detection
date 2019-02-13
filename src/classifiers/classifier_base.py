@@ -32,7 +32,7 @@ class Classifier(metaclass=ABCMeta):
     def confusion_matrix(self, y_true, y_pred, num_categories, names):
         confusion_matrix = metrics.confusion_matrix(y_true, y_pred)
         matrix_proportions = np.zeros((num_categories, num_categories))
-        for i in range(0, 3):
+        for i in range(0, num_categories):
             matrix_proportions[i, :] = \
                 confusion_matrix[i, :] / float(confusion_matrix[i, :].sum())
         confusion_df = pd.DataFrame(

@@ -1,4 +1,4 @@
-import numpy as np 
+import numpy as np
 import pandas as pd
 
 file_path = "./data/OffensEval2019/start-kit/training-v1/offenseval-training-v1.tsv"

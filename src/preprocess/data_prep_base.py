@@ -20,7 +20,11 @@ class DataPrep(metaclass=ABCMeta):
         dataset = pd.read_csv(file_path)
         return dataset
 
-    def get_X_y(self, dataset, X_column_names=['tweet'], y_column_names=['subtask_a']):
+    def get_X_y(
+            self,
+            dataset,
+            X_column_names=['tweet'],
+            y_column_names=['subtask_a']):
         """
         y are categorical dependent variables, therefore
         they are tranformed to single boolean columns for each category.
@@ -51,3 +55,13 @@ class DataPrep(metaclass=ABCMeta):
         Added this method to remember we need to deal with 'NaN' values.
         """
         pass
+
+    def transform_class_column_to_ints(self, dataframe, column_name, mapping):
+        """
+        Takes in a dataframe and changes a class column
+        (where the classes are something else than ints) to
+        a column with ints based on the mapping dictionary.
+        Returns the transformed dataframe.
+        """
+        dataframe[column_name] = dataframe[column_name].map(mapping)
+        return dataframe
