@@ -1,6 +1,14 @@
 # Multilingual Hate Speech Detection 
 ### Master's Thesis // IT University of Copenhagen 
 
+# Table of Contents
+
+1. [Project Setup](#project-setup)
+2. [Preprocessing](#preprocessing)
+3. [Classifiers](#classifiers)
+4. [References](#references)
+5. [Contributors](#contributors)
+
 ## Project Setup 
 **Project Dependencies:**
 - **Python 3** :snake:
@@ -47,7 +55,7 @@ $ pip install -r requirements.txt
 - Implements the model introduced [here](https://github.com/t-davidson/hate-speech-and-offensive-language/blob/master/src/Automated%20Hate%20Speech%20Detection%20and%20the%20Problem%20of%20Offensive%20Language.ipynb)
 - A script showing how it can be used can be found in `./src/scripts/test_hsaofl_classifier.py`.
 
-## Refernces 
+## References 
 ### Automated Hate Speech Detection and the Problem of Offensive Language
 - [Link](https://github.com/t-davidson/hate-speech-and-offensive-language/)
 - Citation: 
