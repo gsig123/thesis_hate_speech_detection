@@ -40,6 +40,7 @@ $ pip install -r requirements.txt
 - `data_prep_hsaofl.py` 
 - Implements methods to get the dataset ready for the model introduced [here](https://github.com/t-davidson/hate-speech-and-offensive-language/blob/master/src/Automated%20Hate%20Speech%20Detection%20and%20the%20Problem%20of%20Offensive%20Language.ipynb) - This includes extracting features etc. 
 - the `get_X_y_feature_names` method takes in a dataset as a `Pandas` `DataFrame` and returns `X`, `y`, and `feature_names`, ready as inputs for the corresponding classifier.
+- The dataset this is designed for can be found in `./data/raw/HateSpeechAndOffensiveLanguage/labeled_data.csv`.
 
 ## Classifiers
 - `./src/classifiers/`
