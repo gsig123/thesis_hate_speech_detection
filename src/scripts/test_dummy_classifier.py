@@ -11,4 +11,3 @@ f1_score = c.f1_score(y_true, y_pred)
 recall = c.recall(y_true, y_pred)
 precision = c.precision(y_true, y_pred)
 accuracy = c.accuracy(y_true, y_pred)
-
