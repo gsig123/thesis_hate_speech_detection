@@ -1,7 +1,7 @@
 # Multilingual Hate Speech Detection 
 ### Master's Thesis // IT University of Copenhagen 
 
-# Table of Contents
+## Table of Contents
 
 1. [Project Setup](#project-setup)
 2. [Preprocessing](#preprocessing)
