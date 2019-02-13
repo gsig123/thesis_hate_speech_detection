@@ -45,6 +45,11 @@ $ pip install -r requirements.txt
 ### Automated Hate Speech Detection and the Promblem of Offensive Language Classifier
 - `classifier_hsaofl.py` 
 - Implements the model introduced [here](https://github.com/t-davidson/hate-speech-and-offensive-language/blob/master/src/Automated%20Hate%20Speech%20Detection%20and%20the%20Problem%20of%20Offensive%20Language.ipynb)
+- A script showing how it can be used can be found in `./src/scripts/test_hsaofl_classifier.py`.
+
+## Refernces 
+### Automated Hate Speech Detection and the Problem of Offensive Language
+- [Link](https://github.com/t-davidson/hate-speech-and-offensive-language/)
 - Citation: 
 ```
 @inproceedings{hateoffensive,
@@ -57,8 +62,6 @@ $ pip install -r requirements.txt
   pages = {512-515}
   }
 ```
-- A script showing how it can be used can be found in `./src/scripts/test_hsaofl_classifier.py`.
-
 
 ## Contributors 
 
