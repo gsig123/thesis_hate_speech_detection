@@ -49,6 +49,7 @@ class HSAOFLClassifier(Classifier):
             class_weight=self.class_weight_3,
             penalty=self.penalty_3,
             C=self.c_3,
+            solver='lbfgs',
         ).fit(X_, y)
         return model, X_
 
