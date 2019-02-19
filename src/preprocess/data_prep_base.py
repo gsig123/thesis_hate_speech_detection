@@ -65,3 +65,6 @@ class DataPrep(metaclass=ABCMeta):
         """
         dataframe[column_name] = dataframe[column_name].map(mapping)
         return dataframe
+
+    def remove_rows_where_column_is_NULL(self, dataframe, column_name):
+        return dataframe[pd.notnull(dataframe[column_name])]
