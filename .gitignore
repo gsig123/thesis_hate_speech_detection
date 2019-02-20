@@ -8,4 +8,7 @@
 *.pyo
 __pycache__/
 *.py[cod]
-/venv/
+/notebooks/Diving\ into\ sklearn.ipynb
+/notebooks/Diving\ into\ Tensorflow.ipynb
+/notebooks/.ipynb_checkpoints/Diving into Tensorflow-checkpoint.ipynb
+/notebooks/.ipynb_checkpoints/Diving into sklearn-checkpoint.ipynb
