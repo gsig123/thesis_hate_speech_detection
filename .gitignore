@@ -12,3 +12,4 @@ __pycache__/
 /notebooks/Diving\ into\ Tensorflow.ipynb
 /notebooks/.ipynb_checkpoints/Diving into Tensorflow-checkpoint.ipynb
 /notebooks/.ipynb_checkpoints/Diving into sklearn-checkpoint.ipynb
+/venv
