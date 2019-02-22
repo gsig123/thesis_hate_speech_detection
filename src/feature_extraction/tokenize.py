@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 import string
 
 
-def tokenize(sentence, language):
+def tokenize(sentence, language="english"):
     """
     Input: a sentence and the language, language is a string, f.x. "english"
     Output: A list of words, stopwords and punctuation ignored
