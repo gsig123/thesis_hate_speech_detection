@@ -43,6 +43,10 @@ $ pip install -r requirements.txt
 - the `get_X_y_feature_names` method takes in a dataset as a `Pandas` `DataFrame` and returns `X`, `y`, and `feature_names`, ready as inputs for the corresponding classifier.
 - The dataset this is designed for can be found in `./data/raw/HateSpeechAndOffensiveLanguage/labeled_data.csv`.
 
+### OffensEval
+- `data_prep_offenseval.py`
+- Implements functionality to read in a file and turn it into `X`, `y_a`, `y_b`, `y_c`, corresponding to the different subtasks as they are defined in the `OffensEval` task. 
+
 ## Feature Extraction
 - `./src/feature_extraction/`
 - A directory containing modules for extracting different features from the dataset.
