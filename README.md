@@ -87,6 +87,13 @@ $ pip install -r requirements.txt
   }
 ```
 
+### OffensEval 2019 
+- [Link](https://competitions.codalab.org/competitions/20011#learn_the_details)
+
+### Deep Learning for Hate Speech Detection
+- [Link](https://github.com/pinkeshbadjatiya/twitter-hatespeech)
+
+
 ## Contributors 
 
 - [Gudbjartur ( Bjartur ) Sigurbergsson](sigurberg.son@gmail.com)
