@@ -38,4 +38,3 @@ class DataPrepOffensEval(DataPrep):
             y_sub_b_name_to_ints,
             y_sub_c_name_to_ints,
         )
-

@@ -5,7 +5,8 @@
 
 1. [Project Setup](#project-setup)
 2. [Preprocessing](#preprocessing)
-3. [Classifiers](#classifiers)
+3. [Features](#feature-extraction)
+4. [Classifiers](#classifiers)
 4. [References](#references)
 5. [Contributors](#contributors)
 
@@ -41,6 +42,16 @@ $ pip install -r requirements.txt
 - Implements methods to get the dataset ready for the model introduced [here](https://github.com/t-davidson/hate-speech-and-offensive-language/blob/master/src/Automated%20Hate%20Speech%20Detection%20and%20the%20Problem%20of%20Offensive%20Language.ipynb) - This includes extracting features etc. 
 - the `get_X_y_feature_names` method takes in a dataset as a `Pandas` `DataFrame` and returns `X`, `y`, and `feature_names`, ready as inputs for the corresponding classifier.
 - The dataset this is designed for can be found in `./data/raw/HateSpeechAndOffensiveLanguage/labeled_data.csv`.
+
+## Feature Extraction
+- `./src/feature_extraction/`
+- A directory containing modules for extracting different features from the dataset.
+- `tokenize.py`: Tokenize a sentence. Excludes stopwords and punctuation. 
+- `bag_of_words.py`: Create BOW representation from list of sentences. 
+- `tfidf_from_bow.py`: Transform a BOW representation to a `tf-idf` representation. 
+- `sentiment_score_english.py`: Get a sentiment score for a sentence. -1 is negative, 0 is neutral, +1 is positive. 
+- `w2v_embeddings.py`: Create a W2V Model based on the input corpus. Returns embeddings for the input corpus. 
+
 
 ## Classifiers
 - `./src/classifiers/`
