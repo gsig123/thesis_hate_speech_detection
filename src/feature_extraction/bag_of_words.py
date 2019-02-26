@@ -31,4 +31,4 @@ def bag_of_words(list_of_sentences,
     X = vectorizer.fit_transform(
         list_of_sentences,
     )
-    return X.toarray()
+    return X.toarray(), vectorizer.get_feature_names()
