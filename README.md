@@ -55,6 +55,9 @@ $ pip install -r requirements.txt
 - `tfidf_from_bow.py`: Transform a BOW representation to a `tf-idf` representation. 
 - `sentiment_score_english.py`: Get a sentiment score for a sentence. -1 is negative, 0 is neutral, +1 is positive. 
 - `w2v_embeddings.py`: Create a W2V Model based on the input corpus. Returns embeddings for the input corpus. 
+- `w2i.py`: Takes in a list of sentences and returns a list of lists of integers, where each
+integer represent a word. The default behaviour is to pad the sequence so all sequences 
+have the same length once outputted. 
 
 
 ## Classifiers
