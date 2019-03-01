@@ -74,7 +74,7 @@ have the same length once outputted.
 - A script showing how it can be used can be found in `./src/scripts/test_hsaofl_classifier.py`.
 
 ### Bi LSTM
-- `classifier_b_lstm.py`
+- `classifier_bi_lstm.py`
 - BI-LSTM + Multilayer Perceptron Classifier
 
 ## References 
