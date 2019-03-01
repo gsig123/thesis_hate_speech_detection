@@ -29,7 +29,7 @@ class HSAOFLClassifier(Classifier):
         self.loss_function = loss_function
         self.multi_class = multi_class
 
-    def fit(self, X, y):
+    def fit(self, X, y, X_test):
         select = SelectFromModel(
             LogisticRegression(
                 class_weight=self.class_weight_1,
@@ -38,6 +38,7 @@ class HSAOFLClassifier(Classifier):
             )
         )
         X_ = select.fit_transform(X, y)
+        X_test = select.transform(X_test)
         model = LinearSVC(
             class_weight=self.class_weight_2,
             C=self.c_2,
@@ -51,7 +52,7 @@ class HSAOFLClassifier(Classifier):
             C=self.c_3,
             solver='lbfgs',
         ).fit(X_, y)
-        return model, X_
+        return model, X_, X_test
 
     def predict(self, X, model):
         y_preds = model.predict(X)
