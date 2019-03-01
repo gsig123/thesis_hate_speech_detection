@@ -59,7 +59,6 @@ $ pip install -r requirements.txt
 integer represent a word. The default behaviour is to pad the sequence so all sequences 
 have the same length once outputted. 
 
-
 ## Classifiers
 - `./src/classifiers/`
 - A directory containing all the classifiers implemented. 
@@ -74,10 +73,18 @@ have the same length once outputted.
 - Implements the model introduced [here](https://github.com/t-davidson/hate-speech-and-offensive-language/blob/master/src/Automated%20Hate%20Speech%20Detection%20and%20the%20Problem%20of%20Offensive%20Language.ipynb)
 - A script showing how it can be used can be found in `./src/scripts/test_hsaofl_classifier.py`.
 
+### Bi LSTM
+- `classifier_b_lstm.py`
+- BI-LSTM + Multilayer Perceptron Classifier
+
 ## References 
-### Automated Hate Speech Detection and the Problem of Offensive Language
-- [Link](https://github.com/t-davidson/hate-speech-and-offensive-language/)
-- Citation: 
+
+### Links
+- [Automated Hate Speech Detection and the Problem of Offensive Language](https://github.com/t-davidson/hate-speech-and-offensive-language/)
+- [OffensEval 2019 ](https://competitions.codalab.org/competitions/20011#learn_the_details)
+- [Deep Learning for Hate Speech Detection](https://github.com/pinkeshbadjatiya/twitter-hatespeech)
+
+### Citations
 ```
 @inproceedings{hateoffensive,
   title = {Automated Hate Speech Detection and the Problem of Offensive Language},
@@ -89,13 +96,6 @@ have the same length once outputted.
   pages = {512-515}
   }
 ```
-
-### OffensEval 2019 
-- [Link](https://competitions.codalab.org/competitions/20011#learn_the_details)
-
-### Deep Learning for Hate Speech Detection
-- [Link](https://github.com/pinkeshbadjatiya/twitter-hatespeech)
-
 
 ## Contributors 
 
