@@ -3,6 +3,10 @@ import tensorflow as tf
 from tensorflow import keras
 from src.utils import logger
 import matplotlib.pyplot as plt
+from tensorflow.keras import initializers
+from tensorflow.keras import regularizers
+import pandas as pd
+import numpy as np
 
 
 class BiLstmClassifier(Classifier):
@@ -85,18 +89,27 @@ class BiLstmClassifier(Classifier):
         ))
         model.add(keras.layers.Dropout(self.dropout_1))
         model.add(keras.layers.Bidirectional(
-            layer=keras.layers.LSTM(self.lstm_layers),
+            layer=keras.layers.LSTM(
+                units=self.lstm_layers,
+                ),
             merge_mode="concat")
         )
         model.add(keras.layers.Dropout(self.dropout_2))
         model.add(keras.layers.Dense(
             units=self.mlp_layers,
             activation=self.mlp_activation,
+            kernel_initializer=initializers.glorot_normal,
+            kernel_regularizer=regularizers.l2(0.01),
+            activity_regularizer=regularizers.l1(0.01),
+
         ))
         model.add(keras.layers.Dropout(self.dropout_3))
         model.add(keras.layers.Dense(
             units=1,
             activation=self.output_activation,
+            kernel_initializer=initializers.glorot_normal,
+            kernel_regularizer=regularizers.l2(0.01),
+            activity_regularizer=regularizers.l1(0.01),
         ))
         self.logging.info(model.summary())
         model.compile(
@@ -169,3 +182,20 @@ class BiLstmClassifier(Classifier):
         y_pred = model.predict(X)
         y_pred_binary = [0 if value[0] < 0.5 else 1 for value in y_pred]
         return y_pred_binary
+
+    def correct_vs_predictions_to_csv(self, X_original, X_test, y_pred, y_true):
+        # Make sure everything is of right datatype
+        X_original = pd.DataFrame(X_original)
+        X_test = pd.DataFrame(X_test)
+        y_true = np.array(y_true)
+        y_pred = np.array(y_pred)
+        # Select out the rows from X_original which
+        # are in X_test
+        X_original = X_original[X_original.index.isin(X_test.index)]
+        # Add columns to dataframe
+        X_original["y_true"] = y_true.tolist()
+        X_original["y_pred"] = y_pred.tolist()
+        # Write to csv file
+        mapping = {0: "NOT", 1: "OFF"}
+        X_original = X_original.replace({"y_true": mapping, "y_pred": mapping})
+        X_original.to_csv("~/Desktop/test.csv")

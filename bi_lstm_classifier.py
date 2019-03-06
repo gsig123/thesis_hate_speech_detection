@@ -2,6 +2,8 @@ from src.preprocess.data_prep_offenseval import DataPrepOffensEval
 from src.classifiers.classifier_bi_lstm import BiLstmClassifier
 from src.feature_extraction.w2i import w2i
 import argparse
+from datetime import datetime
+import pandas as pd
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bi-LSTM Based Classifier")
@@ -56,13 +58,15 @@ if __name__ == "__main__":
                         )
     args = parser.parse_args()
 
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     # Get user defined variables:
     train_file_path = args.train_file
     test_file_path = args.test_file
-    log_file_path = args.logfile
-    train_val_loss_file_path = args.train_val_loss_file
-    train_val_acc_file_path = args.train_val_accuracy_file
-    confusion_plot_file_path = args.confusion_plot_file
+    log_file_path = timestamp + "-" + args.logfile
+    train_val_loss_file_path = timestamp + "-" + args.train_val_loss_file
+    train_val_acc_file_path = timestamp + "-" + args.train_val_accuracy_file
+    confusion_plot_file_path = timestamp + "-" + args.confusion_plot_file
     lstm_layers = args.lstm_layers
     mlp_layers = args.mlp_layers
     epochs = args.epochs
@@ -70,11 +74,12 @@ if __name__ == "__main__":
     # Get the training data:
     dp = DataPrepOffensEval()
     result_tuple = dp.get_X_and_ys(file_path=train_file_path)
-    X = result_tuple[0]
+    X_original = result_tuple[0]
     y_sub_a = result_tuple[1]
     sub_a_mapping = result_tuple[4]
     # Transform the training data into w2i form:
-    X, w2i_dict, i2w_dict = w2i(X)
+    X, w2i_dict, i2w_dict = w2i(X_original)
+    X = pd.DataFrame(X)
     # Create a train/test set with 80%/20% of the data
     X_train, X_test, y_sub_a_train, y_sub_a_test = dp.train_test_split(
         X, y_sub_a, test_size=0.2)
@@ -91,6 +96,7 @@ if __name__ == "__main__":
         mlp_layers=mlp_layers,
         logfile=log_file_path,
     )
+
     # Train the model
     model = classifier.fit(X_train, y_sub_a_train, X_val, y_sub_a_val)
     # Plot train/val loss and accuracy to evaluate overfitting
@@ -103,3 +109,5 @@ if __name__ == "__main__":
         y_sub_a_test, y_test_pred, 2, class_names)
     classifier.plot_confusion_matrix(
         confusion_df, file_path=confusion_plot_file_path)
+
+    classifier.correct_vs_predictions_to_csv(X_original, X_test, y_test_pred, y_sub_a_test)
