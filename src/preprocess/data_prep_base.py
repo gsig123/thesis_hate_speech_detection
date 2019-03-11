@@ -20,22 +20,6 @@ class DataPrep(metaclass=ABCMeta):
         dataset = pd.read_csv(file_path)
         return dataset
 
-    def get_X_y(
-            self,
-            dataset,
-            X_column_names=['tweet'],
-            y_column_names=['subtask_a']):
-        """
-        y are categorical dependent variables, therefore
-        they are tranformed to single boolean columns for each category.
-        Returns X, y and a list of the new column names for y.
-        """
-        y_df = pd.get_dummies(dataset[y_column_names])
-        y_new_col_names = list(y_df)
-        y = y_df.values
-        X = dataset[X_column_names].values
-        return X, y, y_new_col_names
-
     def train_test_split(self, X, y, test_size=0.2, random_state=0):
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=random_state)
