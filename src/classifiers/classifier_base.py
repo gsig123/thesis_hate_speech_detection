@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import itertools
 from abc import ABCMeta, abstractmethod
 import seaborn
+from src.utils import logger
 
 
 class Classifier(metaclass=ABCMeta):
@@ -79,5 +80,34 @@ class Classifier(metaclass=ABCMeta):
         plt.tick_params(labelsize=12)
         if file_path:
             plt.savefig(file_path)
-        else: 
+        else:
             plt.show()
+
+    def log_metrics(self, y_true, y_pred, y_map):
+        recall = self.recall(y_true, y_pred)
+        precision = self.precision(y_true, y_pred)
+        f1_score = self.f1_score(y_true, y_pred)
+        accuracy = self.precision(y_true, y_pred)
+        self.logging.info("Index Map: {}".format(y_map))
+        self.logging.info("Recall: {}".format(recall))
+        self.logging.info("Precision: {}".format(precision))
+        self.logging.info("F1 Score: {}".format(f1_score))
+        self.logging.info("Accuracy: {}".format(accuracy))
+
+    def true_vs_pred_to_csv(self, file_path, X_original, X_test, y_pred, y_true):
+        # Make sure everything is of right datatype
+        X_original = pd.DataFrame(X_original)
+        X_test = pd.DataFrame(X_test)
+        y_true = np.array(y_true)
+        y_pred = np.array(y_pred)
+        # Select out the rows from X_original which
+        # are in X_test
+        X_original = X_original[X_original.index.isin(X_test.index)]
+        # Add columns to dataframe
+        X_original["y_true"] = y_true.tolist()
+        X_original["y_pred"] = y_pred.tolist()
+        # Write to csv file
+        mapping = {0: "NOT", 1: "OFF"}
+        X_original = X_original.replace({"y_true": mapping, "y_pred": mapping})
+        X_original.to_csv(file_path)
+

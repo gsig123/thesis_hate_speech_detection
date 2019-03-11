@@ -167,35 +167,7 @@ class BiLstmClassifier(Classifier):
         else:
             plt.show()
 
-    def log_metrics(self, y_true, y_pred, y_map):
-        recall = self.recall(y_true, y_pred)
-        precision = self.precision(y_true, y_pred)
-        f1_score = self.f1_score(y_true, y_pred)
-        accuracy = self.precision(y_true, y_pred)
-        self.logging.info("Index Map: {}".format(y_map))
-        self.logging.info("Recall: {}".format(recall))
-        self.logging.info("Precision: {}".format(precision))
-        self.logging.info("F1 Score: {}".format(f1_score))
-        self.logging.info("Accuracy: {}".format(accuracy))
-
     def predict(self, X, model):
         y_pred = model.predict(X)
         y_pred_binary = [0 if value[0] < 0.5 else 1 for value in y_pred]
         return y_pred_binary
-
-    def correct_vs_predictions_to_csv(self, X_original, X_test, y_pred, y_true):
-        # Make sure everything is of right datatype
-        X_original = pd.DataFrame(X_original)
-        X_test = pd.DataFrame(X_test)
-        y_true = np.array(y_true)
-        y_pred = np.array(y_pred)
-        # Select out the rows from X_original which
-        # are in X_test
-        X_original = X_original[X_original.index.isin(X_test.index)]
-        # Add columns to dataframe
-        X_original["y_true"] = y_true.tolist()
-        X_original["y_pred"] = y_pred.tolist()
-        # Write to csv file
-        mapping = {0: "NOT", 1: "OFF"}
-        X_original = X_original.replace({"y_true": mapping, "y_pred": mapping})
-        X_original.to_csv("~/Desktop/test.csv")

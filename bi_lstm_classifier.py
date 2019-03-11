@@ -110,4 +110,4 @@ if __name__ == "__main__":
     classifier.plot_confusion_matrix(
         confusion_df, file_path=confusion_plot_file_path)
 
-    classifier.correct_vs_predictions_to_csv(X_original, X_test, y_test_pred, y_sub_a_test)
+    classifier.true_vs_pred_to_csv("test.csv", X_original, X_test, y_test_pred, y_sub_a_test, )
