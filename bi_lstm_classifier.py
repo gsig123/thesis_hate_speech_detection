@@ -1,6 +1,7 @@
 from src.preprocess.data_prep_offenseval import DataPrepOffensEval
 from src.classifiers.classifier_bi_lstm import BiLstmClassifier
 from src.feature_extraction.w2i import w2i
+from src.utils.stats import get_distribution_from_y
 import argparse
 from datetime import datetime
 import pandas as pd
@@ -62,15 +63,11 @@ if __name__ == "__main__":
 
     # Get user defined variables:
     train_file_path = args.train_file
-    test_file_path = args.test_file
     log_file_path = timestamp + "-" + args.logfile
     train_val_loss_file_path = timestamp + "-" + args.train_val_loss_file
     train_val_acc_file_path = timestamp + "-" + args.train_val_accuracy_file
     confusion_plot_file_path = timestamp + "-" + args.confusion_plot_file
-    lstm_layers = args.lstm_layers
-    mlp_layers = args.mlp_layers
     epochs = args.epochs
-    batch_size = args.batch_size
     # Get the training data:
     dp = DataPrepOffensEval()
     result_tuple = dp.get_X_and_ys(file_path=train_file_path)
@@ -87,14 +84,17 @@ if __name__ == "__main__":
     X_train, X_val, y_sub_a_train, y_sub_a_val = dp.train_test_split(
         X_train, y_sub_a_train, test_size=0.1,
     )
+    print("Distribution y_train: {}".format(
+        get_distribution_from_y(y_sub_a_train)))
+    print("Distribution y_val: {}".format(
+        get_distribution_from_y(y_sub_a_val)))
+    print("Distribution y_test: {}".format(
+        get_distribution_from_y(y_sub_a_test)))
     # Create Classifier Instance:
     classifier = BiLstmClassifier(
         embedding_input_dim=len(w2i_dict),
-        epochs=epochs,
-        batch_size=batch_size,
-        lstm_layers=lstm_layers,
-        mlp_layers=mlp_layers,
         logfile=log_file_path,
+        epochs=epochs,
     )
 
     # Train the model
@@ -110,4 +110,4 @@ if __name__ == "__main__":
     classifier.plot_confusion_matrix(
         confusion_df, file_path=confusion_plot_file_path)
 
-    classifier.true_vs_pred_to_csv("test.csv", X_original, X_test, y_test_pred, y_sub_a_test, )
+    classifier.true_vs_pred_to_csv("test.csv", X_original, X_test, y_test_pred, y_sub_a_test)

@@ -60,7 +60,3 @@ print("F1: {}, Recall: {}, Precision: {}, Accuracy: {}".format(
 ))
 
 c.plot_confusion_matrix(confusion_df_sub_a, "confusion_matrix_baseline.png")
-
-
-
-
