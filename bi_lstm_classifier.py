@@ -1,6 +1,7 @@
 from src.preprocess.data_prep_offenseval import DataPrepOffensEval
 from src.classifiers.classifier_bi_lstm import BiLstmClassifier
 from src.feature_extraction.w2i import w2i
+from src.feature_extraction import fasttext
 from src.utils.stats import get_distribution_from_y
 import argparse
 from datetime import datetime
@@ -9,7 +10,7 @@ import pandas as pd
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bi-LSTM Based Classifier")
     parser.add_argument("--train-file",
-                        help="File path for the training set",
+                    help="File path for the training set",
                         type=str,
                         default="./data/raw/OffensEval2019/start-kit/training-v1/offenseval-training-v1.tsv",
                         )
