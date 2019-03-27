@@ -83,6 +83,7 @@ have the same length once outputted.
 - [Automated Hate Speech Detection and the Problem of Offensive Language](https://github.com/t-davidson/hate-speech-and-offensive-language/)
 - [OffensEval 2019 ](https://competitions.codalab.org/competitions/20011#learn_the_details)
 - [Deep Learning for Hate Speech Detection](https://github.com/pinkeshbadjatiya/twitter-hatespeech)
+- [FastText Pretrained Embeddings](https://fasttext.cc/docs/en/crawl-vectors.html)
 
 ### Citations
 ```
@@ -95,6 +96,14 @@ have the same length once outputted.
   location = {Montreal, Canada},
   pages = {512-515}
   }
+```
+```
+@inproceedings{grave2018learning,
+  title={Learning Word Vectors for 157 Languages},
+  author={Grave, Edouard and Bojanowski, Piotr and Gupta, Prakhar and Joulin, Armand and Mikolov, Tomas},
+  booktitle={Proceedings of the International Conference on Language Resources and Evaluation (LREC 2018)},
+  year={2018}
+}
 ```
 
 ## Contributors 
