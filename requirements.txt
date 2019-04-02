@@ -23,6 +23,8 @@ gensim==3.7.1
 grpcio==1.18.0
 h5py==2.9.0
 idna==2.8
+imbalanced-learn==0.4.3
+imblearn==0.0
 ipykernel==5.1.0
 ipython==7.2.0
 ipython-genutils==0.2.0
@@ -35,6 +37,7 @@ jupyter==1.0.0
 jupyter-client==5.2.4
 jupyter-console==6.0.0
 jupyter-core==4.4.0
+Keras==2.2.4
 Keras-Applications==1.0.7
 Keras-Preprocessing==1.0.9
 kiwisolver==1.0.1
@@ -65,6 +68,7 @@ pyparsing==2.3.1
 Pyphen==0.9.5
 python-dateutil==2.7.5
 pytz==2018.9
+PyYAML==5.1
 pyzmq==17.1.2
 qtconsole==4.4.3
 repoze.lru==0.7
