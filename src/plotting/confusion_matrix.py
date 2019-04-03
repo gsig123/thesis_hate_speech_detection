@@ -12,9 +12,9 @@ def confusion_matrix(y_true, y_pred, num_categories, names):
         matrix_proportions[i, :] = \
             confusion_matrix[i, :] / float(confusion_matrix[i, :].sum())
     confusion_df = pd.DataFrame(
-            matrix_proportions,
-            index=names,
-            columns=names,
+        matrix_proportions,
+        index=names,
+        columns=names,
     )
     return confusion_df
 
