@@ -59,30 +59,40 @@ def create_meta_txt(
     return file_name
 
 
-def create_result_text(
+def create_result_txt(
     dir_path,
     y_mapping,
     f1_score,
     recall_score,
     precision_score,
     confusion_matrix_df,
+    train_size,
+    val_size,
+    test_size,
 ):
     # Num Train Samples
     # Num Val Samples
     # Num Test Samples
-    file_name = dir_path + "/meta.txt"
+    file_name = dir_path + "/result.txt"
     y_mapping_line = "Y Mapping: {}\n".format(y_mapping)
+    train_size_line = "Train Size: {}\n".format(train_size)
+    test_size_line = "Test Size: {}\n".format(test_size)
+    val_size_line = "Validation Size: {}\n".format(val_size)
     f1_line = "F1: {}\n".format(f1_score)
     recall_line = "Recall: {}\n".format(recall_score)
     precision_line = "Precision: {}\n".format(precision_score)
-    confusion_line = "Confusion Matrix: {}\n".format(confusion_matrix_df)
+    confusion_line = "Confusion Matrix:\n{}\n".format(confusion_matrix_df)
     f = open(file_name, "w+")
     f.write(y_mapping_line)
+    f.write(train_size_line)
+    f.write(test_size_line)
+    f.write(val_size_line)
     f.write(f1_line)
     f.write(recall_line)
     f.write(precision_line)
     f.write(confusion_line)
     f.close()
+    return file_name
 
 
 def train_val_loss_file_path(dir_path):
@@ -94,4 +104,4 @@ def train_val_accuracy_file_path(dir_path):
 
 
 def confusion_matrix_file_path(dir_path):
-    return 
+    return dir_path + "/confusion_matrix.png"
