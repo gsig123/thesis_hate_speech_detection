@@ -1,5 +1,11 @@
 import os
 from datetime import datetime
+from ..plotting.confusion_matrix import plot_confusion_matrix
+from ..plotting.train_val_comparison import (
+    plot_train_val_accuracy,
+    plot_train_val_loss,
+)
+from ..utils.save_load_keras_model import save_model
 
 ROOT_PATH = "./model_training"
 
@@ -31,7 +37,8 @@ def create_meta_txt(
     model_name_line = "Model Name: {}\n".format(model_name)
     training_file_line = "Training File: {}\n".format(train_path)
     dropout_line = "Dropout Amount: {}\n".format(dropouts)
-    regularizations_line = "Regularization Amount: {}\n".format(regularizations)
+    regularizations_line = "Regularization Amount: {}\n".format(
+        regularizations)
     units_line = "Units: {}\n".format(units)
     activation_line = "Activation Functions: {}\n".format(activation_functions)
     optimzer_line = "Optimizer: {}\n".format(optimizer)
@@ -105,3 +112,14 @@ def train_val_accuracy_file_path(dir_path):
 
 def confusion_matrix_file_path(dir_path):
     return dir_path + "/confusion_matrix.png"
+
+
+def create_plots_save_model(dir_path, y_true, y_pred, y_map, history, model):
+    save_model(model, history, dir_path)
+    acc_file_path = train_val_accuracy_file_path(dir_path)
+    loss_file_path = train_val_loss_file_path(dir_path)
+    confusion_file_path = confusion_matrix_file_path(dir_path)
+    plot_confusion_matrix(
+        y_true, y_pred, len(y_map), list(y_map.keys()), confusion_file_path)
+    plot_train_val_accuracy(history, acc_file_path)
+    plot_train_val_loss(history, loss_file_path)
