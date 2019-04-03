@@ -86,7 +86,7 @@ class Classifier:
         self.X_val = X_val
         self.y_val = y_val
 
-    def train(self, model, ):
+    def train(self):
         self.history = self.model.fit(
             self.X_train,
             self.y_train,

@@ -5,6 +5,7 @@ from keras.layers import (
     LSTM,
     Dense,
     Dropout,
+    Activation,
 )
 from keras.optimizers import SGD
 
@@ -26,22 +27,23 @@ def create_model(
 ):
     model = Sequential()
     model.add(embedding_layer)
-    model.add(keras.layers.Bidirectional(
-        layer=keras.layers.LSTM(
+    model.add(Bidirectional(
+        layer=LSTM(
             units=lstm_units,
             dropout=dropout_1,
             recurrent_dropout=recurrent_dropout,
         ),
         merge_mode="concat",
     ))
-    model.add(keras.layers.Dropout(dropout_2))
-    model.add(keras.layers.Dense(units=dense_1_units))
+    model.add(Dropout(dropout_2))
+    model.add(Dense(units=dense_1_units))
     model.add(Activation(dense_1_activation))
-    model.add(keras.layers.Dropout(dropout_3))
-    model.add(keras.layers.Dense(units=dense_2_units))
+    model.add(Dropout(dropout_3))
+    model.add(Dense(units=dense_2_units))
     model.add(Activation(dense_2_activation))
     model.compile(
         optimizer=optimizer,
         loss=loss_function,
         metrics=metrics,
     )
+    return model
