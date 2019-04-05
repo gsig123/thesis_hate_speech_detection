@@ -4,6 +4,8 @@ GLOVE_EN_PATH = "./glove_pre_trained/glove.6B.100d.txt"
 # === FastText Pretrained Embeddings ===
 FAST_TEXT_DIM = 300
 FAST_TEXT_EN_PATH = "./fast_text_pre_trained/cc.en.300.vec"
+FAST_TEXT_100_DIM = 100
+FAST_TEXT_EN_PATH_100d = "./fast_text_pre_trained/cc.en.100.vec"
 
 # === Default Neural Network Model Params ===
 NUM_VECTORS = 50000  # Max number of vectors to read in from FastText
