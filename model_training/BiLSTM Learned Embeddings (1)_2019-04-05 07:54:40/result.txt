@@ -1,0 +1,11 @@
+Y Mapping: {'NOT': 0, 'OFF': 1}
+Train Size: 9532
+Test Size: 2648
+Validation Size: 1060
+F1: [0.7913826  0.53038674]
+Recall: [0.803433   0.51306413]
+Precision: [0.77968834 0.54891995]
+Confusion Matrix:
+          NOT       OFF
+NOT  0.803433  0.196567
+OFF  0.486936  0.513064
