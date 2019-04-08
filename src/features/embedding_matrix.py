@@ -24,13 +24,14 @@ def get_embedding_model_glove(file_path):
     return emb_model
 
 
-def get_embedding_matrix(emb_model, X, emb_dim, num_words, word_index, oov_model_path=None):
+def get_embedding_matrix(emb_model, X, emb_dim, word_index, oov_model_path=None):
     """
     Creates an embedding matrix from pretrained emb_model.
     If word doesn't exist in emb_model the vector for that
     word will be the zero vector.
     word_index is from the keras_padded_w2i module.
     """
+    num_words = len(word_index) + 1
     if oov_model_path:
         oov_model = FastText(oov_model_path)
     else:

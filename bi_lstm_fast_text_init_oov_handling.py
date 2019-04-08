@@ -57,7 +57,6 @@ if __name__ == "__main__":
         emb_model_fasttext,
         X,
         FAST_TEXT_DIM,
-        len(word_index) + 1,
         word_index,
         oov_model_path=MODEL_PATH_FAST_TEXT_OFFENS_EVAL_EN_300d,
     )

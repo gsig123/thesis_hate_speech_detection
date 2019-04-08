@@ -55,7 +55,6 @@ if __name__ == "__main__":
         emb_model_glove,
         X,
         GLOVE_DIM,
-        len(word_index) + 1,
         word_index,
     )
 

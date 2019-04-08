@@ -50,7 +50,7 @@ emb_model_fasttext = get_embedding_model_fasttext(
     FAST_TEXT_EN_PATH, NUM_VECTORS)
 
 emb_matrix_glove, num_oov_glove = get_embedding_matrix(
-    emb_model_glove, X, GLOVE_DIM, len(word_index) + 1, word_index)
+    emb_model_glove, X, GLOVE_DIM, word_index)
 emb_matrix_fast_text, num_oov_fast_text = get_embedding_matrix(
     emb_model_fasttext, X, FAST_TEXT_DIM, len(word_index) + 1, word_index)
 print("GloVe Sample: \n{}".format(emb_matrix_glove[0][0]))

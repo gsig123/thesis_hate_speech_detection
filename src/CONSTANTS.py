@@ -11,8 +11,8 @@ MODEL_PATH_FAST_TEXT_OFFENS_EVAL_EN_300d = "./models/fast_text/OffensEval_EN_300
 # === Default Neural Network Model Params ===
 NUM_VECTORS = 50000  # Max number of vectors to read in from FastText
 MAX_NUM_WORDS = 20000  # Max number of words to consider in dataset, ordered by frequence
-MAX_SEQ_LEN = 1000  # Max length of sequence to consider in dataset
-MAX_SEQ_LEN_2 = 100
+MAX_SEQ_LEN = 1000  # Max length of sequence in embedding layer 
+MAX_SEQ_LEN_2 = 100 
 
 # === Training Data ===
 EN_FILE_PATH = "./data/raw/OffensEval2019/start-kit/training-v1/offenseval-training-v1.tsv"
