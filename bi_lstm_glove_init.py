@@ -80,6 +80,7 @@ if __name__ == "__main__":
         optimizer=OPTIMIZER,
         loss_function=LOSS_FUNCTION,
         metrics=METRICS,
+        num_oov_words=num_oov_glove,
     )
     clf = Classifier(
         model_name=MODEL_NAME,

@@ -35,6 +35,7 @@ class Classifier:
         val_size,
         random_state,
         train_file_path,
+        num_oov_words=None,
     ):
         self.model_name = model_name
         self.units = units
@@ -54,6 +55,7 @@ class Classifier:
         self.val_size = val_size
         self.random_state = random_state
         self.train_file_path = train_file_path
+        self.num_oov_words = num_oov_words
         # LOG META DATA
         self.dir_path = create_train_dir(self.model_name)
         self.meta_file_path = create_meta_txt(
@@ -70,6 +72,7 @@ class Classifier:
             self.metric,
             self.epochs,
             self.batch_size,
+            self.num_oov_words,
         )
         # CREATE TRAIN TEST VAL
         X_train, y_train, X_test, y_test, X_val, y_val = train_test_val_split(
