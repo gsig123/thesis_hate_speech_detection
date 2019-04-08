@@ -1,15 +1,16 @@
 from src.models.classifier import Classifier
 from src.models.bi_lstm_pretrained_init import create_model
 from src.CONSTANTS import (
-    GLOVE_DIM,
-    GLOVE_EN_PATH,
+    FAST_TEXT_DIM,
+    FAST_TEXT_EN_PATH,
     NUM_VECTORS,
     MAX_NUM_WORDS,
     MAX_SEQ_LEN,
     EN_FILE_PATH,
+    MODEL_PATH_FAST_TEXT_OFFENS_EVAL_EN_300d,
 )
 from src.features.embedding_matrix import (
-    get_embedding_model_glove,
+    get_embedding_model_fasttext,
     get_embedding_matrix,
 )
 from src.layers.pretrained_embedding_layer import (
@@ -32,7 +33,7 @@ OPTIMIZER = "adam"
 LOSS_FUNCTION = "binary_crossentropy"
 METRICS = ["accuracy"]
 
-MODEL_NAME = "BiLSTM Initialized w. GloVe"
+MODEL_NAME = "BiLSTM Initialized w. FastText top 50k words. OOV from trained model on corpus."
 EPOCHS = 20
 BATCH_SIZE = 512
 TEST_SIZE = 0.2
@@ -48,26 +49,28 @@ if __name__ == "__main__":
     y_mapping = data[4]
 
     X, word_index = get_padded_w2i_matrix(X, MAX_NUM_WORDS, MAX_SEQ_LEN)
-    emb_model_glove = get_embedding_model_glove(
-        GLOVE_EN_PATH,
+    emb_model_fasttext = get_embedding_model_fasttext(
+        FAST_TEXT_EN_PATH,
+        NUM_VECTORS,
     )
-    emb_matrix_glove, num_oov_glove = get_embedding_matrix(
-        emb_model_glove,
+    emb_matrix_fast_text, num_oov_fast_text = get_embedding_matrix(
+        emb_model_fasttext,
         X,
-        GLOVE_DIM,
+        FAST_TEXT_DIM,
         len(word_index) + 1,
         word_index,
+        oov_model_path=MODEL_PATH_FAST_TEXT_OFFENS_EVAL_EN_300d,
     )
 
-    emb_layer_glove = get_pretrained_embedding_layer(
+    emb_layer_fast_text = get_pretrained_embedding_layer(
         len(word_index) + 1,
-        GLOVE_DIM,
-        emb_matrix_glove,
+        FAST_TEXT_DIM,
+        emb_matrix_fast_text,
         MAX_SEQ_LEN,
     )
 
     model = create_model(
-        embedding_layer=emb_layer_glove,
+        embedding_layer=emb_layer_fast_text,
         lstm_units=LSTM_UNITS,
         dropout_1=DROPOUT_1,
         dropout_2=DROPOUT_2,
@@ -100,7 +103,7 @@ if __name__ == "__main__":
         val_size=VAL_SIZE,
         random_state=RANDOM_STATE,
         train_file_path=TRAIN_FILE_PATH,
-        num_oov_words=num_oov_glove,
+        num_oov_words=num_oov_fast_text,
     )
 
     clf.train()

@@ -19,3 +19,4 @@ __pycache__/
 /data/processed/OffensEval2019/start-kit/training-v1/fasttext-dataset.txt
 fast_text_pre_trained.zip
 glove_pre_trained.zip
+models/fast_text

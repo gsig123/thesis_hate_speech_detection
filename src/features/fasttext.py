@@ -28,4 +28,3 @@ def create_fasttext_emb_matrix(X):
                 emb_matrix.append(np.array(emb))
                 seen_words[word] = True
     return np.array(emb_matrix)
-

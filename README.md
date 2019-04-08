@@ -77,6 +77,23 @@ have the same length once outputted.
 - `classifier_bi_lstm.py`
 - BI-LSTM + Multilayer Perceptron Classifier
 
+## FastText
+
+### Create Word Embeddings from vocabulary using FastText
+```sh
+sudo ./fastText/fasttext skipgram -dim 300 -input ./data/processed/OffensEval2019/start-kit/training-v1/fasttext-dataset.txt -output ./models/fast_text/OffensEval_EN_300d
+```
+
+### Use a FastText model to get embeddings for a word
+```python
+from pyfasttext import FastText
+
+model_path = "./models/fast_text/OffensEval_EN_300d.bin"
+model = FastText(model_path)
+emb = model["@USER"]
+```
+
+
 ## References 
 
 ### Links

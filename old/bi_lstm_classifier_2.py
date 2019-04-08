@@ -25,9 +25,12 @@ y_sub_a_test = result_tuple_test[1]
 X_val = result_tuple_val[0]
 y_sub_a_val = result_tuple_val[1]
 
-print("OFF Train Set: {}".format(np.nonzero(y_sub_a_train)[0].size / y_sub_a_train.size))
-print("OFF  Val  Set: {}".format(np.nonzero(y_sub_a_val)[0].size / y_sub_a_val.size))
-print("OFF Test  Set: {}".format(np.nonzero(y_sub_a_test)[0].size / y_sub_a_test.size))
+print("OFF Train Set: {}".format(np.nonzero(
+    y_sub_a_train)[0].size / y_sub_a_train.size))
+print("OFF  Val  Set: {}".format(np.nonzero(
+    y_sub_a_val)[0].size / y_sub_a_val.size))
+print("OFF Test  Set: {}".format(np.nonzero(
+    y_sub_a_test)[0].size / y_sub_a_test.size))
 
 X_train_w2i, train_w2i_dict, train_i2w_dict = w2i(X_train)
 X_test_w2i, test_w2i_dict, test_i2w_dict = w2i(X_test)
@@ -49,6 +52,6 @@ classifier.plot_train_val_metric(file_path="metric.png")
 y_test_pred = classifier.predict(X_test_w2i, model)
 classifier.log_metrics(y_sub_a_test, y_test_pred, sub_a_mapping)
 class_names = list(sub_a_mapping.keys())
-confusion_df = classifier.confusion_matrix(y_sub_a_test, y_test_pred, 2, class_names)
+confusion_df = classifier.confusion_matrix(
+    y_sub_a_test, y_test_pred, 2, class_names)
 classifier.plot_confusion_matrix(confusion_df, file_path="confusion.png")
-

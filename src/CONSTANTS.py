@@ -6,6 +6,7 @@ FAST_TEXT_DIM = 300
 FAST_TEXT_EN_PATH = "./fast_text_pre_trained/cc.en.300.vec"
 FAST_TEXT_100_DIM = 100
 FAST_TEXT_EN_PATH_100d = "./fast_text_pre_trained/cc.en.100.vec"
+MODEL_PATH_FAST_TEXT_OFFENS_EVAL_EN_300d = "./models/fast_text/OffensEval_EN_300d.bin"
 
 # === Default Neural Network Model Params ===
 NUM_VECTORS = 50000  # Max number of vectors to read in from FastText

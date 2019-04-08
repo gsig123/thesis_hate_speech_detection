@@ -100,6 +100,7 @@ if __name__ == "__main__":
         val_size=VAL_SIZE,
         random_state=RANDOM_STATE,
         train_file_path=TRAIN_FILE_PATH,
+        num_oov_words=num_oov_glove,
     )
 
     clf.train()
