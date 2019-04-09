@@ -1,0 +1,35 @@
+Model Name: Danish + FastText #1
+Training File: ./data/raw/OffensEval2019_Danish/danish_1600.tsv
+Dropout Amount: [0.2, 0.2, 0.2, 0.2]
+Regularization Amount: []
+Units: [5, 4, 4]
+Activation Functions: ['relu', 'sigmoid']
+Optimizer: adam
+Loss Function: binary_crossentropy
+Metric: ['accuracy']
+Epochs: 20
+Batch Size: 512
+# OOV Words: 20491Model Details:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_1 (Embedding)      (None, 1000, 300)         6373200   
+_________________________________________________________________
+bidirectional_1 (Bidirection (None, 10)                12240     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 10)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 4)                 44        
+_________________________________________________________________
+activation_1 (Activation)    (None, 4)                 0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 4)                 0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 5         
+_________________________________________________________________
+activation_2 (Activation)    (None, 1)                 0         
+=================================================================
+Total params: 6,385,489
+Trainable params: 12,289
+Non-trainable params: 6,373,200
+_________________________________________________________________

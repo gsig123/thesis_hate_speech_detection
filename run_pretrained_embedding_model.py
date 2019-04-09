@@ -40,9 +40,9 @@ METRICS = ['accuracy']
 @click.option("--test_size", default=0.2, help="Test Size")
 @click.option("--val_size", default=0.1, help="Validation Size")
 @click.option("--model_name", help="The name of the model")
-@click.option("--glove_fasttext", type=click.Choice(["FastText", "GloVe"]), help="GloVe or FastText?")
+@click.option("--glove_fasttext", default="FastText", help="GloVe or FastText?")
 @click.option("--train_file_path", default=EN_FILE_PATH, help="Path to train file")
-@click.option("")
+@click.option("--embedding_file_path", default=FAST_TEXT_EN_OFFENS_EVAL_300d, help="Path to embedding file")
 def main(
     lstm_units,
     dense_units,
@@ -57,8 +57,10 @@ def main(
     val_size,
     model_name,
     glove_fasttext,
+    train_file_path,
+    embedding_file_path,
 ):
-    data = get_X_and_ys(EN_FILE_PATH)
+    data = get_X_and_ys(train_file_path)
     X = data[0]
     y = data[1]
     y_mapping = data[4]
@@ -67,10 +69,12 @@ def main(
     if glove_fasttext == "FastText":
         emb_dim = FAST_TEXT_DIM
         # emb_model = get_embedding_model_fasttext(FAST_TEXT_EN_OFFENS_EVAL_300d)
-        emb_model = get_embedding_model_glove(FAST_TEXT_EN_OFFENS_EVAL_300d)
+        # emb_model = get_embedding_model_glove(FAST_TEXT_EN_OFFENS_EVAL_300d)
     elif glove_fasttext == "GloVe":
         emb_dim = GLOVE_DIM
-        emb_model = get_embedding_model_glove(GLOVE_EN_PATH)
+        # emb_model = get_embedding_model_glove(GLOVE_EN_PATH)
+    
+    emb_model = get_embedding_model_glove(embedding_file_path)
     
     emb_matrix, num_oov = get_embedding_matrix(
         emb_model,
@@ -121,7 +125,7 @@ def main(
         test_size=test_size,
         val_size=val_size,
         random_state=RANDOM_STATE,
-        train_file_path=EN_FILE_PATH,
+        train_file_path=train_file_path,
         num_oov_words=num_oov,
     )
 
