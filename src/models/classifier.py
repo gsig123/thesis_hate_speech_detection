@@ -104,6 +104,7 @@ class Classifier:
         self.f1 = f1_score(self.y_test, self.y_pred)
         self.recall = recall(self.y_test, self.y_pred)
         self.precision = precision(self.y_test, self.y_pred)
+        # Create CSV file with predicted vs actual
         self.confusion_matrix = confusion_matrix(
             self.y_test,
             self.y_pred,

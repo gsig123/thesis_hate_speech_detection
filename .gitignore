@@ -20,3 +20,4 @@ __pycache__/
 fast_text_pre_trained.zip
 glove_pre_trained.zip
 models/fast_text
+/models

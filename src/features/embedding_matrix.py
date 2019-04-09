@@ -4,11 +4,16 @@ from gensim.models import KeyedVectors
 from pyfasttext import FastText
 
 
-def get_embedding_model_fasttext(file_path, num_vectors):
-    emb_model = KeyedVectors.load_word2vec_format(
-        file_path,
-        limit=num_vectors,
-    )
+def get_embedding_model_fasttext(file_path, num_vectors=None):
+    if num_vectors:
+        emb_model = KeyedVectors.load_word2vec_format(
+            file_path,
+            limit=num_vectors,
+        )
+    else:
+        emb_model = KeyedVectors.load_word2vec_format(
+            file_path,
+        )
     return emb_model
 
 
@@ -18,7 +23,10 @@ def get_embedding_model_glove(file_path):
     for line in f:
         values = line.split()
         word = values[0]
-        coefs = np.asarray(values[1:], dtype="float32")
+        try:
+            coefs = np.asarray(values[1:], dtype="float32")
+        except Exception:
+            continue
         emb_model[word] = coefs
     f.close()
     return emb_model

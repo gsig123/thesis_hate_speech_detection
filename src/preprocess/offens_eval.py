@@ -1,4 +1,5 @@
 from .read_in_data import tsv_to_dataframe, csv_to_dataframe
+import pandas as pd
 
 
 def transform_class_column_to_ints(dataframe, column_name, mapping):
