@@ -13,7 +13,7 @@ def get_padded_w2i_matrix(X, max_num_words, max_seq_len):
     tokenizer = Tokenizer(num_words=max_num_words)
     tokenizer.fit_on_texts(X)
     sequences = tokenizer.texts_to_sequences(X)
-    word_index = tokenizer.word_index  # Num of unique tokenss
+    word_index = tokenizer.word_index  # unique tokens
     # Pad everything to the same length to be keras friendly
     X = pad_sequences(sequences, maxlen=max_seq_len)
     return X, word_index

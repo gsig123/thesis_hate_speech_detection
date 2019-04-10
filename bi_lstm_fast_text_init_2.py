@@ -54,7 +54,6 @@ if __name__ == "__main__":
     )
     emb_matrix_fast_text, num_oov_fast_text = get_embedding_matrix(
         emb_model_fasttext,
-        X,
         FAST_TEXT_DIM,
         word_index,
     )

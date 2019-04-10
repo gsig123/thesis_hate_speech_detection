@@ -32,7 +32,22 @@ def get_embedding_model_glove(file_path):
     return emb_model
 
 
-def get_embedding_matrix(emb_model, X, emb_dim, word_index, oov_model_path=None):
+def get_embedding_model(file_path):
+    f = open(os.path.join(file_path))
+    emb_model = {}
+    for line in f:
+        values = line.split()
+        word = values[0]
+        try:
+            coefs = np.asarray(values[1:], dtype="float32")
+        except Exception:
+            continue
+        emb_model[word] = coefs
+    f.close()
+    return emb_model
+
+
+def get_embedding_matrix(emb_model, emb_dim, word_index, oov_model_path=None):
     """
     Creates an embedding matrix from pretrained emb_model.
     If word doesn't exist in emb_model the vector for that
@@ -47,7 +62,7 @@ def get_embedding_matrix(emb_model, X, emb_dim, word_index, oov_model_path=None)
     embedding_matrix = np.zeros((num_words, emb_dim))
     num_oov = 0
     for word, i in word_index.items():
-        if word in emb_model:
+        if word in emb_model and len(emb_model[word]) == emb_dim:
             embedding_vector = emb_model[word]
             embedding_matrix[i] = embedding_vector
         else:

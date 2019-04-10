@@ -18,6 +18,7 @@ def create_train_dir(model_name):
 
 
 def create_meta_txt(
+    arguments,
     dir_path,
     model_name,
     train_path,
@@ -34,7 +35,7 @@ def create_meta_txt(
     num_oov_words=None,
 ):
     file_name = dir_path + "/meta.txt"
-
+    arguments_line = "Command Line Arguments: {}\n".format(arguments)
     model_name_line = "Model Name: {}\n".format(model_name)
     training_file_line = "Training File: {}\n".format(train_path)
     dropout_line = "Dropout Amount: {}\n".format(dropouts)
@@ -50,6 +51,7 @@ def create_meta_txt(
     num_oov_words_line = "# OOV Words: {}".format(num_oov_words)
 
     f = open(file_name, "w+")
+    f.write(arguments_line)
     f.write(model_name_line)
     f.write(training_file_line)
     f.write(dropout_line)

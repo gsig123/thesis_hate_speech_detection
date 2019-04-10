@@ -93,7 +93,7 @@ model = FastText(model_path)
 emb = model["@USER"]
 ```
 
-### Create Word Embeddings from pre-trained FastText Model
+### Create Word Embeddings using pre-trained FastText Model
 ```sh
 $ ./fastText/fasttext print-word-vectors fast_text_pre_trained/cc.en.300.bin < ./data/processed/OffensEval2019/start-kit/training-v1/fasttext-dataset-no-labels.txt > ./fast_text_pre_trained/EN_OffensEval_300d.vec
 ```

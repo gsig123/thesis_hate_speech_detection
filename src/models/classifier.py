@@ -12,11 +12,13 @@ from ..evaluate.metrics import (
     precision,
     confusion_matrix,
 )
+import pandas as pd
 
 
 class Classifier:
     def __init__(
         self,
+        arguments,  # Command line arguments
         model_name,
         units,  # LIST
         dropouts,  # LIST
@@ -29,6 +31,7 @@ class Classifier:
         batch_size,
         model,
         X,
+        X_original,  # Just the tweets, not embedded or anything.
         y,
         y_mapping,
         test_size,
@@ -37,6 +40,7 @@ class Classifier:
         train_file_path,
         num_oov_words=None,
     ):
+        self.arguments = arguments
         self.model_name = model_name
         self.units = units
         self.dropouts = dropouts
@@ -49,6 +53,7 @@ class Classifier:
         self.batch_size = batch_size
         self.model = model
         self.X = X
+        self.X_original = X_original
         self.y = y
         self.y_mapping = y_mapping
         self.test_size = test_size
@@ -59,6 +64,7 @@ class Classifier:
         # LOG META DATA
         self.dir_path = create_train_dir(self.model_name)
         self.meta_file_path = create_meta_txt(
+            self.arguments,
             self.dir_path,
             self.model_name,
             self.train_file_path,
@@ -74,6 +80,7 @@ class Classifier:
             self.batch_size,
             self.num_oov_words,
         )
+        X = pd.DataFrame(X)
         # CREATE TRAIN TEST VAL
         X_train, y_train, X_test, y_test, X_val, y_val = train_test_val_split(
             X,
@@ -130,3 +137,23 @@ class Classifier:
             self.history,
             self.model,
         )
+        # Create csv with predicted vs true and original tweets
+        self.true_vs_predicted_to_csv(self.y_test, self.y_pred)
+
+    def true_vs_predicted_to_csv(self, y_test, y_pred):
+        # Create the path:
+        file_path = self.dir_path + "/test_vs_pred.csv"
+        # Create the data
+        test_indices = self.X_test.index.tolist()
+        X_original_test_split = self.X_original.ix[test_indices]
+        df = pd.DataFrame()
+        df['index'] = test_indices
+        df['tweet'] = X_original_test_split[0].values
+        df['y_true'] = self.y_test.values
+        df['y_pred'] = self.y_pred
+        y_mapping_inverse = dict(map(reversed, self.y_mapping.items()))
+        df = df.replace({"y_true": y_mapping_inverse})
+        df = df.replace({"y_pred": y_mapping_inverse})
+        # Write to csv
+        df.to_csv(file_path)
+2

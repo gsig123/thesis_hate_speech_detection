@@ -53,7 +53,6 @@ if __name__ == "__main__":
     )
     emb_matrix_glove, num_oov_glove = get_embedding_matrix(
         emb_model_glove,
-        X,
         GLOVE_DIM,
         word_index,
     )

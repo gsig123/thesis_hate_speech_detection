@@ -1,3 +1,4 @@
+import sys
 import click
 import pandas as pd
 from src.models.classifier import Classifier
@@ -60,8 +61,10 @@ def main(
     train_file_path,
     embedding_file_path,
 ):
+    arguments = sys.argv
     data = get_X_and_ys(train_file_path)
     X = data[0]
+    X_original = X
     y = data[1]
     y_mapping = data[4]
     X, word_index = get_padded_w2i_matrix(X, MAX_NUM_WORDS, MAX_SEQ_LEN)
@@ -78,7 +81,6 @@ def main(
     
     emb_matrix, num_oov = get_embedding_matrix(
         emb_model,
-        X,
         emb_dim,
         word_index,
     )
@@ -108,6 +110,7 @@ def main(
         metrics=METRICS,
     )
     clf = Classifier(
+        arguments=arguments,
         model_name=model_name,
         units=[lstm_units, dense_units, dense_units],
         dropouts=[dropout, dropout, dropout, dropout],
@@ -120,6 +123,7 @@ def main(
         batch_size=batch_size,
         model=model,
         X=pd.DataFrame(X),
+        X_original=pd.DataFrame(X_original),
         y=pd.DataFrame(y),
         y_mapping=y_mapping,
         test_size=test_size,
