@@ -11,7 +11,7 @@ EN_EMBEDDINGS_PATH = "./data/tokens/EN_tokens_embeddings.txt"
 DA_EMBEDDINGS_PATH = "./data/tokens/DA_1600_tokens_embeddings.txt"
 
 EN_OOV_TOKENS_PATH = "./data/tokens/EN_tokens_OOV.txt"
-DA_OOV_TOKENS_PATH = "./data/tokens/DA_1600_tokens.txt"
+DA_OOV_TOKENS_PATH = "./data/tokens/DA_1600_tokens_OOV.txt"
 
 # Only consider the top 100k most frequent embeddings
 # from the pretrained embedding stuff. If we don't limit
