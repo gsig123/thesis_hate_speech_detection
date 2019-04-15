@@ -7,7 +7,7 @@ from src.CONSTANTS import (
     MAX_NUM_WORDS,
     MAX_SEQ_LEN,
     EN_FILE_PATH,
-    FAST_TEXT_EN_OFFENS_EVAL_300d,
+    EN_EMB_FILE_PATH,
     FAST_TEXT_DIM,
 )
 from src.features.embedding_matrix import (
@@ -38,8 +38,9 @@ METRICS = ['accuracy']
 @click.option("--val_size", default=0.1, help="Validation Size")
 @click.option("--model_name", help="The name of the model")
 @click.option("--train_file_path", default=EN_FILE_PATH, help="Path to train file")
-@click.option("--embedding_file_path", default=FAST_TEXT_EN_OFFENS_EVAL_300d, help="Path to embedding file")
+@click.option("--embedding_file_path", default=EN_EMB_FILE_PATH, help="Path to embedding file")
 @click.option("--max_seq_len", default=MAX_SEQ_LEN, help="Max sequence length in input (number of words in sentence)")
+@click.option("--max_num_words", default=MAX_NUM_WORDS, help="Max # words to consider in tokenization")
 def main(
     lstm_units,
     dense_units,
@@ -56,6 +57,7 @@ def main(
     train_file_path,
     embedding_file_path,
     max_seq_len,
+    max_num_words,
 ):
     arguments = sys.argv
     data = get_X_and_ys(train_file_path)
@@ -63,7 +65,7 @@ def main(
     X_original = X
     y = data[1]
     y_mapping = data[4]
-    X, word_index = get_padded_w2i_matrix(X, MAX_NUM_WORDS, max_seq_len)
+    X, word_index = get_padded_w2i_matrix(X, max_num_words, max_seq_len)
 
     emb_dim = FAST_TEXT_DIM
     
@@ -84,6 +86,8 @@ def main(
         max_seq_len,
     )
 
+    dense_2_units = 1
+
     model = create_model(
         embedding_layer=emb_layer,
         lstm_units=lstm_units,
@@ -92,7 +96,7 @@ def main(
         dropout_3=dropout,
         recurrent_dropout=dropout,
         dense_1_units=dense_units,
-        dense_2_units=1,
+        dense_2_units=dense_2_units,
         dense_1_activation=dense_1_activation,
         dense_2_activation=dense_2_activation,
         optimizer=optimizer,
@@ -102,7 +106,7 @@ def main(
     clf = Classifier(
         arguments=arguments,
         model_name=model_name,
-        units=[lstm_units, dense_units, dense_units],
+        units=[lstm_units, dense_units, dense_2_units],
         dropouts=[dropout, dropout, dropout, dropout],
         regularizations=[],
         activation_functions=[dense_1_activation, dense_2_activation],
@@ -121,6 +125,8 @@ def main(
         random_state=RANDOM_STATE,
         train_file_path=train_file_path,
         num_oov_words=num_oov,
+        max_seq_len=max_seq_len,
+        max_num_words=max_num_words,
     )
 
     clf.train()

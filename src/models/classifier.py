@@ -38,7 +38,9 @@ class Classifier:
         val_size,
         random_state,
         train_file_path,
-        num_oov_words=None,
+        num_oov_words,
+        max_seq_len,
+        max_num_words,
     ):
         self.arguments = arguments
         self.model_name = model_name
@@ -61,6 +63,8 @@ class Classifier:
         self.random_state = random_state
         self.train_file_path = train_file_path
         self.num_oov_words = num_oov_words
+        self.max_seq_len = max_seq_len
+        self.max_num_words = max_num_words
         # LOG META DATA
         self.dir_path = create_train_dir(self.model_name)
         self.meta_file_path = create_meta_txt(
@@ -79,6 +83,8 @@ class Classifier:
             self.epochs,
             self.batch_size,
             self.num_oov_words,
+            self.max_seq_len,
+            self.max_num_words,
         )
         X = pd.DataFrame(X)
         # CREATE TRAIN TEST VAL
@@ -106,7 +112,11 @@ class Classifier:
             verbose=2,
         )
 
-    def predict(self):
+    def predict(self, X_test=None, y_test=None):
+        if X_test:
+            self.X_test = X_test
+        if y_test:
+            self.y_test = y_test
         self.y_pred = get_y_pred_two_categories(self.model, self.X_test)
         self.f1 = f1_score(self.y_test, self.y_pred)
         self.recall = recall(self.y_test, self.y_pred)

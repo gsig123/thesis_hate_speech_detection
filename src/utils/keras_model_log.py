@@ -32,7 +32,9 @@ def create_meta_txt(
     metric,
     epochs,
     batch_size,
-    num_oov_words=None,
+    num_oov_words,
+    max_seq_len,
+    max_num_words,
 ):
     file_name = dir_path + "/meta.txt"
     arguments_line = "Command Line Arguments: {}\n".format(arguments)
@@ -48,7 +50,9 @@ def create_meta_txt(
     metrics_line = "Metric: {}\n".format(metric)
     epochs_line = "Epochs: {}\n".format(epochs)
     batch_size = "Batch Size: {}\n".format(batch_size)
-    num_oov_words_line = "# OOV Words: {}".format(num_oov_words)
+    num_oov_words_line = "# OOV Words: {}\n".format(num_oov_words)
+    max_seq_len_line = "MAX_SEQ_LEN: {}\n".format(max_seq_len)
+    max_num_words_line = "MAX_NUM_WORDS: {}\n".format(max_num_words)
 
     f = open(file_name, "w+")
     f.write(arguments_line)
@@ -64,6 +68,8 @@ def create_meta_txt(
     f.write(epochs_line)
     f.write(batch_size)
     f.write(num_oov_words_line)
+    f.write(max_seq_len_line)
+    f.write(max_num_words_line)
     f.write("Model Details:\n")
     model.summary(print_fn=lambda x: f.write(x + '\n'))
     f.close()

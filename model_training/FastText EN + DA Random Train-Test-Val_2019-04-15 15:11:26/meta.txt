@@ -1,0 +1,39 @@
+Command Line Arguments: ['run_fasttext_model.py', '--model_name', 'FastText EN + DA Random Train-Test-Val', '--epochs', '20', '--lstm_units', '10', '--dense_units', '8', '--embedding_file_path', './data/tokens/EN_DA_emb_combined.txt', '--train_file_path', './data/raw/EN_DA_combined.tsv']
+Model Name: FastText EN + DA Random Train-Test-Val
+Training File: ./data/raw/EN_DA_combined.tsv
+Dropout Amount: [0.2, 0.2, 0.2, 0.2]
+Regularization Amount: []
+Units: [10, 8, 1]
+Activation Functions: ['relu', 'sigmoid']
+Optimizer: adam
+Loss Function: binary_crossentropy
+Metric: ['accuracy']
+Epochs: 20
+Batch Size: 512
+# OOV Words: 21
+MAX_SEQ_LEN: 1000
+MAX_NUM_WORDS: 20000
+Model Details:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_1 (Embedding)      (None, 1000, 300)         8264100   
+_________________________________________________________________
+bidirectional_1 (Bidirection (None, 20)                24880     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 20)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 8)                 168       
+_________________________________________________________________
+activation_1 (Activation)    (None, 8)                 0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 8)                 0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 9         
+_________________________________________________________________
+activation_2 (Activation)    (None, 1)                 0         
+=================================================================
+Total params: 8,289,157
+Trainable params: 25,057
+Non-trainable params: 8,264,100
+_________________________________________________________________
