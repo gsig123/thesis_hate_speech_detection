@@ -1,0 +1,39 @@
+Command Line Arguments: ['run_fasttext_model.py', '--model_name', 'New embedding model', '--epochs', '20', '--lstm_units', '20', '--dense_units', '16', '--train_file_path', './data/raw/OffensEval2019/start-kit/training-v1/offenseval-training-v1.tsv']
+Model Name: New embedding model
+Training File: ./data/raw/OffensEval2019/start-kit/training-v1/offenseval-training-v1.tsv
+Dropout Amount: [0.2, 0.2, 0.2, 0.2]
+Regularization Amount: []
+Units: [20, 16, 1]
+Activation Functions: ['relu', 'sigmoid']
+Optimizer: adam
+Loss Function: binary_crossentropy
+Metric: ['accuracy']
+Epochs: 20
+Batch Size: 512
+# OOV Words: 2463
+MAX_SEQ_LEN: 1000
+MAX_NUM_WORDS: 20000
+Model Details:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_1 (Embedding)      (None, 1000, 300)         5883000   
+_________________________________________________________________
+bidirectional_1 (Bidirection (None, 40)                51360     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 40)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 16)                656       
+_________________________________________________________________
+activation_1 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 16)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 17        
+_________________________________________________________________
+activation_2 (Activation)    (None, 1)                 0         
+=================================================================
+Total params: 5,935,033
+Trainable params: 52,033
+Non-trainable params: 5,883,000
+_________________________________________________________________

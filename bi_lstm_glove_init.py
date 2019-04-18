@@ -9,8 +9,8 @@ from src.CONSTANTS import (
     EN_FILE_PATH,
 )
 from src.features.embedding_matrix import (
-    get_embedding_model_glove,
-    get_embedding_matrix,
+    create_embedding_model_glove,
+    create_embedding_matrix,
 )
 from src.layers.pretrained_embedding_layer import (
     get_pretrained_embedding_layer,
@@ -48,10 +48,10 @@ if __name__ == "__main__":
     y_mapping = data[4]
 
     X, word_index = get_padded_w2i_matrix(X, MAX_NUM_WORDS, MAX_SEQ_LEN)
-    emb_model_glove = get_embedding_model_glove(
+    emb_model_glove = create_embedding_model_glove(
         GLOVE_EN_PATH,
     )
-    emb_matrix_glove, num_oov_glove = get_embedding_matrix(
+    emb_matrix_glove, num_oov_glove = create_embedding_matrix(
         emb_model_glove,
         GLOVE_DIM,
         len(word_index) + 1,

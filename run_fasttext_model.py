@@ -11,9 +11,10 @@ from src.CONSTANTS import (
     FAST_TEXT_DIM,
 )
 from src.features.embedding_matrix import (
-    get_embedding_model,
-    get_embedding_matrix,
+    create_embedding_model,
+    create_embedding_matrix,
 )
+from src.features.pre_trained_embedding_pipeline import pre_trained_embedding_pipeline
 from src.layers.pretrained_embedding_layer import (
     get_pretrained_embedding_layer,
 )
@@ -65,17 +66,25 @@ def main(
     X_original = X
     y = data[1]
     y_mapping = data[4]
-    X, word_index = get_padded_w2i_matrix(X, max_num_words, max_seq_len)
+    # X, word_index = get_padded_w2i_matrix(X, max_num_words, max_seq_len)
 
     emb_dim = FAST_TEXT_DIM
     
-    emb_model = get_embedding_model(embedding_file_path)
+    # emb_model = create_embedding_model(embedding_file_path)
     
-    emb_matrix, num_oov = get_embedding_matrix(
-        emb_model,
-        emb_dim,
-        word_index,
+    # emb_matrix, num_oov = create_embedding_matrix(
+        # emb_model,
+        # emb_dim,
+        # word_index,
+    # )
+
+    emb_matrix, num_oov, word_index, X = pre_trained_embedding_pipeline(
+        X=X,
+        max_seq_len=max_seq_len,
+        num_words=max_num_words,
+        embedding_file_path=embedding_file_path,
     )
+    print(X)
     
     print("# OOV: {}".format(num_oov))
 

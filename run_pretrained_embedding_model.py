@@ -14,9 +14,9 @@ from src.CONSTANTS import (
     GLOVE_DIM,
 )
 from src.features.embedding_matrix import (
-    get_embedding_model_fasttext,
-    get_embedding_model_glove,
-    get_embedding_matrix,
+    create_embedding_model_fasttext,
+    create_embedding_model_glove,
+    create_embedding_matrix,
 )
 from src.layers.pretrained_embedding_layer import (
     get_pretrained_embedding_layer,
@@ -71,15 +71,15 @@ def main(
 
     if glove_fasttext == "FastText":
         emb_dim = FAST_TEXT_DIM
-        # emb_model = get_embedding_model_fasttext(FAST_TEXT_EN_OFFENS_EVAL_300d)
-        # emb_model = get_embedding_model_glove(FAST_TEXT_EN_OFFENS_EVAL_300d)
+        # emb_model = create_embedding_model_fasttext(FAST_TEXT_EN_OFFENS_EVAL_300d)
+        # emb_model = create_embedding_model_glove(FAST_TEXT_EN_OFFENS_EVAL_300d)
     elif glove_fasttext == "GloVe":
         emb_dim = GLOVE_DIM
-        # emb_model = get_embedding_model_glove(GLOVE_EN_PATH)
+        # emb_model = create_embedding_model_glove(GLOVE_EN_PATH)
     
-    emb_model = get_embedding_model_glove(embedding_file_path)
+    emb_model = create_embedding_model_glove(embedding_file_path)
     
-    emb_matrix, num_oov = get_embedding_matrix(
+    emb_matrix, num_oov = create_embedding_matrix(
         emb_model,
         emb_dim,
         word_index,

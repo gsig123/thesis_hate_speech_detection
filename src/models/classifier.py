@@ -166,4 +166,3 @@ class Classifier:
         df = df.replace({"y_pred": y_mapping_inverse})
         # Write to csv
         df.to_csv(file_path)
-2

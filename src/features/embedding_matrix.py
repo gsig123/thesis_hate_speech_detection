@@ -4,7 +4,7 @@ from gensim.models import KeyedVectors
 from pyfasttext import FastText
 
 
-def get_embedding_model_fasttext(file_path, num_vectors=None):
+def create_embedding_model_fasttext(file_path, num_vectors=None):
     if num_vectors:
         emb_model = KeyedVectors.load_word2vec_format(
             file_path,
@@ -17,7 +17,7 @@ def get_embedding_model_fasttext(file_path, num_vectors=None):
     return emb_model
 
 
-def get_embedding_model_glove(file_path):
+def create_embedding_model_glove(file_path):
     f = open(os.path.join(file_path))
     emb_model = {}
     for line in f:
@@ -32,7 +32,7 @@ def get_embedding_model_glove(file_path):
     return emb_model
 
 
-def get_embedding_model(file_path):
+def create_embedding_model(file_path):
     f = open(os.path.join(file_path))
     emb_model = {}
     for line in f:
@@ -47,7 +47,7 @@ def get_embedding_model(file_path):
     return emb_model
 
 
-def get_embedding_matrix(emb_model, emb_dim, word_index, oov_model_path=None):
+def create_embedding_matrix(emb_model, emb_dim, word_index, oov_model_path=None):
     """
     Creates an embedding matrix from pretrained emb_model.
     If word doesn't exist in emb_model the vector for that

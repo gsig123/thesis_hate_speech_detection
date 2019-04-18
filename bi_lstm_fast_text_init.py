@@ -9,8 +9,8 @@ from src.CONSTANTS import (
     EN_FILE_PATH,
 )
 from src.features.embedding_matrix import (
-    get_embedding_model_fasttext,
-    get_embedding_matrix,
+    create_embedding_model_fasttext,
+    create_embedding_matrix,
 )
 from src.layers.pretrained_embedding_layer import (
     get_pretrained_embedding_layer,
@@ -48,11 +48,11 @@ if __name__ == "__main__":
     y_mapping = data[4]
 
     X, word_index = get_padded_w2i_matrix(X, MAX_NUM_WORDS, MAX_SEQ_LEN)
-    emb_model_fasttext = get_embedding_model_fasttext(
+    emb_model_fasttext = create_embedding_model_fasttext(
         FAST_TEXT_EN_PATH,
         NUM_VECTORS,
     )
-    emb_matrix_fast_text, num_oov_fast_text = get_embedding_matrix(
+    emb_matrix_fast_text, num_oov_fast_text = create_embedding_matrix(
         emb_model_fasttext,
         FAST_TEXT_DIM,
         word_index,
