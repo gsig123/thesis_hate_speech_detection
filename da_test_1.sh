@@ -1,1 +1,0 @@
-python run_pretrained_embedding_model.py --model_name "Danish + FastText #1"  --glove_fasttext "FastText" --train_file_path "./data/raw/OffensEval2019_Danish/danish_1600.tsv" --embedding_file_path "./fast_text_pre_trained/DA_OffensEval_1600_300d.txt"
